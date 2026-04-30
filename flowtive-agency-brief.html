@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flowtive ·Agency Brief</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f5f4f0;
+    color: #1a1a18;
+    min-height: 100vh;
+    padding: 2.5rem 1.5rem;
+  }
+
+  .brief {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  /* Logo bar */
+  .logo-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+  .logo {
+    background: #0a0a0a;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 8px;
+    letter-spacing: 0.02em;
+  }
+  .logo-sub {
+    font-size: 14px;
+    color: #888780;
+  }
+
+  /* Meta pills row */
+  .meta-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+  .meta-pill {
+    background: #ffffff;
+    border: 0.5px solid rgba(0,0,0,0.15);
+    border-radius: 8px;
+    padding: 8px 14px;
+  }
+  .meta-pill .label {
+    font-size: 12px;
+    color: #888780;
+    margin-bottom: 2px;
+  }
+  .meta-pill .value {
+    font-size: 15px;
+    font-weight: 500;
+    color: #1a1a18;
+  }
+
+  /* Section labels */
+  .section-label {
+    font-size: 12px;
+    color: #888780;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  /* Cards */
+  .card {
+    background: #ffffff;
+    border: 0.5px solid rgba(0,0,0,0.15);
+    border-radius: 12px;
+    padding: 1.25rem;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: #1a1a18;
+    margin-bottom: 8px;
+  }
+  .card-body {
+    font-size: 14px;
+    color: #5f5e5a;
+    line-height: 1.65;
+  }
+
+  /* Grid */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  /* Spacer */
+  .spacer { height: 1.5rem; }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+    margin: 3px 3px 3px 0;
+  }
+  .tag-blue   { background: #E6F1FB; color: #0C447C; }
+  .tag-teal   { background: #E1F5EE; color: #085041; }
+  .tag-amber  { background: #FAEEDA; color: #633806; }
+  .tag-pink   { background: #FBEAF0; color: #72243E; }
+  .tag-green  { background: #EAF3DE; color: #27500A; }
+  .tag-purple { background: #EEEDFE; color: #3C3489; }
+
+  /* USP highlight */
+  .usp-highlight {
+    border: 0.5px solid rgba(0,0,0,0.15);
+    border-left: 3px solid #0a0a0a;
+    border-radius: 0 8px 8px 0;
+    padding: 1rem 1.25rem;
+    background: #f0efe9;
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: #1a1a18;
+    line-height: 1.65;
+  }
+
+  /* Buyer signals */
+  .buyer-signals {
+    font-size: 14px;
+    color: #5f5e5a;
+    line-height: 1.75;
+  }
+  .sep {
+    color: rgba(0,0,0,0.25);
+    margin: 0 6px;
+  }
+
+  /* Stack spacing helpers */
+  .mb-10 { margin-bottom: 10px; }
+  .mt-6  { margin-top: 6px; }
+
+  /* Industry ranking table */
+  .ranking-note {
+    font-size: 14px;
+    color: #5f5e5a;
+    line-height: 1.65;
+    margin-bottom: 12px;
+  }
+  .ranking-note strong { color: #1a1a18; }
+
+  .table-wrap {
+    overflow-x: auto;
+    background: #ffffff;
+    border: 0.5px solid rgba(0,0,0,0.15);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .ranking-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .ranking-table thead {
+    background: #faf9f5;
+  }
+  .ranking-table th,
+  .ranking-table td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 0.5px solid rgba(0,0,0,0.08);
+    color: #5f5e5a;
+    white-space: nowrap;
+  }
+  .ranking-table th {
+    font-weight: 600;
+    color: #1a1a18;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    user-select: none;
+  }
+  .ranking-table th.sortable::after { content: " \2195"; opacity: 0.35; font-size: 11px; }
+  .ranking-table th.sort-asc::after { content: " \2191"; opacity: 1; color: #1a1a18; }
+  .ranking-table th.sort-desc::after { content: " \2193"; opacity: 1; color: #1a1a18; }
+  .ranking-table tbody tr:hover { background: #fafaf6; }
+  .ranking-table tbody tr:last-child td { border-bottom: none; }
+  .ranking-table td.fit-cell { font-weight: 700; color: #1a1a18; text-align: center; }
+  .ranking-table td strong { color: #1a1a18; }
+
+  .pill {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .pill-h  { background: #EAF3DE; color: #27500A; }
+  .pill-mh { background: #E1F5EE; color: #085041; }
+  .pill-m  { background: #FAEEDA; color: #633806; }
+  .pill-lm { background: #F8E4D0; color: #6E3A0A; }
+  .pill-l  { background: #FBEAF0; color: #72243E; }
+</style>
+</head>
+<body>
+<div class="brief">
+
+  <!-- Logo bar -->
+  <div class="logo-bar">
+    <span class="logo">Flowtive</span>
+    <span class="logo-sub">Agency Brief · Consultation Call</span>
+  </div>
+
+  <!-- Meta pills -->
+  <div class="meta-row">
+    <div class="meta-pill">
+      <div class="label">Founded</div>
+      <div class="value">Feb 2025</div>
+    </div>
+    <div class="meta-pill">
+      <div class="label">Base</div>
+      <div class="value">Bangladesh</div>
+    </div>
+    <div class="meta-pill">
+      <div class="label">Team</div>
+      <div class="value">6 people</div>
+    </div>
+    <div class="meta-pill">
+      <div class="label">Markets</div>
+      <div class="value">US, AU, CA, UK</div>
+    </div>
+    <div class="meta-pill">
+      <div class="label">Webflow since</div>
+      <div class="value">2021</div>
+    </div>
+  </div>
+
+  <!-- ICP Section -->
+  <div class="section-label">Ideal Customer Profile</div>
+
+  <div class="card mb-10">
+    <div class="card-title">Primary Buyer</div>
+    <div class="card-body">B2B companies of 11–50 employees, recently funded between seed and Series B, headquartered in the US, Australia, Canada, or UK. The buyer is a founder, Head of Marketing, VP Growth, or Marketing Director with marketing budget but no in-house designer. They want a polished Webflow site they can update themselves without waiting on a developer.<br><br>We have built sites across multiple verticals. Direct outbound focus is <strong>Healthcare and Law Firms</strong>, where decisions are made on craft and reliability rather than same-vertical case studies. We also work as white-label production for <strong>design and marketing agencies</strong> that don't have in-house Webflow or dev capacity. SaaS buyers typically expect SaaS case studies before engaging, so we'll re-prioritise SaaS as those references accumulate.</div>
+  </div>
+
+  <div class="card mb-10">
+    <div class="card-title">Priority Verticals</div>
+    <div class="mt-6">
+      <span class="tag tag-blue">B2B SaaS (Seed–Series A) · Fit 9</span>
+      <span class="tag tag-teal">Venture Capital Firms · Fit 9</span>
+      <span class="tag tag-amber">Fintech / Healthtech / Proptech · Fit 8</span>
+      <span class="tag tag-green">Agency White-Label · Fit 8</span>
+      <span class="tag tag-purple">Specialised Law Firms · Fit 7</span>
+      <span class="tag tag-pink">Boutique Consulting · Fit 7</span>
+    </div>
+  </div>
+
+  <div class="card mb-10">
+    <div class="card-title">Buyer Signals We Look For</div>
+    <div class="buyer-signals">
+      <span>Stuck on WordPress, frustrated by plugin upkeep</span><span class="sep">—</span>
+      <span>Raised seed or Series A in the last 12 months</span><span class="sep">—</span>
+      <span>Site has no CMS, so content updates need a developer</span><span class="sep">—</span>
+      <span>Wants HubSpot, Segment, Stripe, or Memberstack integrated</span><span class="sep">—</span>
+      <span>Hired marketing leadership but no in-house designer</span><span class="sep">—</span>
+      <span>Just rebranded but the website hasn't caught up</span>
+    </div>
+  </div>
+
+  <!-- Industry Ranking Section -->
+  <div class="spacer"></div>
+  <div class="section-label">Industry Ranking</div>
+
+  <div class="ranking-note">
+    19 verticals scored on Webflow adoption, average project budget, retainer attach rate, AI-churn resistance, and competitive headroom for a Bangladesh-priced senior team. Click any column to sort. <strong>Fit</strong> is the weighted blend.
+  </div>
+
+  <div class="table-wrap mb-10">
+    <table id="ranking-table" class="ranking-table">
+      <thead>
+        <tr>
+          <th class="sortable" data-col="0" data-type="string">Vertical</th>
+          <th class="sortable" data-col="1" data-type="rank">Webflow adoption</th>
+          <th class="sortable" data-col="2" data-type="string">Avg project budget</th>
+          <th class="sortable" data-col="3" data-type="rank">Retainer %</th>
+          <th class="sortable" data-col="4" data-type="rank">AI churn risk</th>
+          <th class="sortable" data-col="5" data-type="rank">Comp. saturation</th>
+          <th class="sortable sort-desc" data-col="6" data-type="number">Fit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>B2B SaaS (seed–Series A)</strong></td><td data-rank="3"><span class="pill pill-h">High</span></td><td>$5k–$20k</td><td data-rank="2.5"><span class="pill pill-mh">Med-High</span></td><td data-rank="2"><span class="pill pill-m">Med</span></td><td data-rank="3"><span class="pill pill-h">High</span></td><td class="fit-cell">9</td></tr>
+        <tr><td><strong>Venture capital firms</strong></td><td data-rank="3"><span class="pill pill-h">High</span></td><td>$8k–$25k</td><td data-rank="3"><span class="pill pill-h">High</span></td><td data-rank="1"><span class="pill pill-l">Low</span></td><td data-rank="2"><span class="pill pill-m">Med</span></td><td class="fit-cell">9</td></tr>
+        <tr><td><strong>Fintech (Series A–B)</strong></td><td data-rank="3"><span class="pill pill-h">High</span></td><td>$10k–$40k</td><td data-rank="3"><span class="pill pill-h">High</span></td><td data-rank="1"><span class="pill pill-l">Low</span></td><td data-rank="2"><span class="pill pill-m">Med</span></td><td class="fit-cell">8</td></tr>
+        <tr><td><strong>Healthtech (Series A–B)</strong></td><td data-rank="2.5"><span class="pill pill-mh">Med-High</span></td><td>$10k–$35k</td><td data-rank="3"><span class="pill pill-h">High</span></td><td data-rank="1"><span class="pill pill-l">Low</span></td><td data-rank="2"><span class="pill pill-m">Med</span></td><td class="fit-cell">8</td></tr>
+        <tr><td><strong>Proptech (B2B)</strong></td><td data-rank="2"><span class="pill pill-m">Med</span></td><td>$8k–$25k</td><td data-rank="2"><span class="pill pill-m">Med</span></td><td data-rank="1"><span class="pill pill-l">Low</span></td><td data-rank="1"><span class="pill pill-l">Low</span></td><td class="fit-cell">8</td></tr>
+        <tr><td><strong>Agency white-label</strong></td><td data-rank="3"><span class="pill pill-h">High</span></td><td>$40–$80/hr</td><td data-rank="3"><span class="pill pill-h">High</span></td><td data-rank="1"><span class="pill pill-l">Low</span></td><td data-rank="2"><span class="pill pill-m">Med</span></td><td class="fit-cell">8</td></tr>
+        <tr><td>Edtech (B2B / B2B2C)</td><td data-rank="2"><span class="pill pill-m">Med</span></td><td>$7k–$20k</td><td data-rank="2"><span class="pill pill-m">Med</span></td><td data-rank="2"><span class="pill pill-m">Med</span></td><td data-rank="2"><span class="pill pill-m">Med</span></td><td class="fit-cell">7</td></tr>
+        <tr><td>Boutique consulting</td><td data-rank="2"><span class="pill pill-m">Med</span></td><td>$6k–$18k</td><td data-rank="2"><span class="pill pill-m">Med</span></td><td data-rank="1"><span class="pill pill-l">Low</span></td><td data-rank="1"><span class="pill pill-l">Low</span></td><td class="fit-cell">7</td></tr>
+        <tr><td>Specialised law firms (mid-size)</td><td data-rank="2"><span class="pill pill-m">Med</span></td><td>$5k–$15k</td><td data-rank="2.5"><span class="pill pill-mh">Med-High</span></td><td data-rank="1"><span class="pill pill-l">Low</span></td><td data-rank="1"><span class="pill pill-l">Low</span></td><td class="fit-cell">7</td></tr>
+        <tr><td>Manufacturing / industrial B2B</td><td data-rank="2"><span class="pill pill-m">Med</span></td><td>$8k–$25k</td><td data-rank="2"><span class="pill pill-m">Med</span></td><td data-rank="1"><span class="pill pill-l">Low</span></td><td data-rank="1"><span class="pill pill-l">Low</span></td><td class="fit-cell">7</td></tr>
+        <tr><td>Creative agencies (small)</td><td data-rank="3"><span class="pill pill-h">High</span></td><td>$3.5k–$10k</td><td data-rank="1"><span class="pill pill-l">Low</span></td><td data-rank="2.5"><span class="pill pill-lm">Med-High</span></td><td data-rank="3"><span class="pill pill-h">High</span></td><td class="fit-cell">5</td></tr>
+        <tr><td>Content / media / podcast networks</td><td data-rank="2"><span class="pill pill-m">Med</span></td><td>$5k–$15k</td><td data-rank="1"><span class="pill pill-l">Low</span></td><td data-rank="2"><span class="pill pill-m">Med</span></td><td data-rank="2"><span class="pill pill-m">Med</span></td><td class="fit-cell">5</td></tr>
+        <tr><td>Crypto / Web3</td><td data-rank="2"><span class="pill pill-m">Med</span></td><td>$5k–$25k</td><td data-rank="1"><span class="pill pill-l">Low</span></td><td data-rank="3"><span class="pill pill-h">High</span></td><td data-rank="2"><span class="pill pill-m">Med</span></td><td class="fit-cell">4</td></tr>
+        <tr><td>DTC e-commerce / fashion</td><td data-rank="1.5"><span class="pill pill-lm">Low-Med</span></td><td>$5k–$15k</td><td data-rank="1"><span class="pill pill-l">Low</span></td><td data-rank="2"><span class="pill pill-m">Med</span></td><td data-rank="3"><span class="pill pill-h">High</span></td><td class="fit-cell">4</td></tr>
+        <tr><td>Hotels / boutique hospitality</td><td data-rank="1"><span class="pill pill-l">Low</span></td><td>$5k–$15k</td><td data-rank="1"><span class="pill pill-l">Low</span></td><td data-rank="2"><span class="pill pill-m">Med</span></td><td data-rank="3"><span class="pill pill-h">High</span></td><td class="fit-cell">4</td></tr>
+        <tr><td>Hospitality (general)</td><td data-rank="1"><span class="pill pill-l">Low</span></td><td>$3.5k–$10k</td><td data-rank="1"><span class="pill pill-l">Low</span></td><td data-rank="2"><span class="pill pill-m">Med</span></td><td data-rank="2"><span class="pill pill-m">Med</span></td><td class="fit-cell">3</td></tr>
+        <tr><td>Non-profits</td><td data-rank="2"><span class="pill pill-m">Med</span></td><td>$3.5k–$10k</td><td data-rank="1"><span class="pill pill-l">Low</span></td><td data-rank="2"><span class="pill pill-m">Med</span></td><td data-rank="2"><span class="pill pill-m">Med</span></td><td class="fit-cell">3</td></tr>
+        <tr><td>Personal brands / coaches</td><td data-rank="2"><span class="pill pill-m">Med</span></td><td>$2k–$5k</td><td data-rank="1"><span class="pill pill-l">Low</span></td><td data-rank="3"><span class="pill pill-h">High</span></td><td data-rank="3"><span class="pill pill-h">High</span></td><td class="fit-cell">2</td></tr>
+        <tr><td>Restaurants / gyms / local SMB</td><td data-rank="1"><span class="pill pill-l">Low</span></td><td>&lt;$3.5k</td><td data-rank="1"><span class="pill pill-l">Low</span></td><td data-rank="3"><span class="pill pill-h">High</span></td><td data-rank="3"><span class="pill pill-h">High</span></td><td class="fit-cell">1</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card mb-10">
+    <div class="card-title">Company-Size Sweet Spot</div>
+    <div class="card-body">Across all promising verticals, the budget-to-friction sweet spot is <strong>11–50 employees</strong>: large enough to have a marketing budget and decision-maker, small enough that no in-house design team exists. 51–200 = referral-only. 200+ sits in enterprise-agency territory and we skip it.</div>
+  </div>
+
+  <!-- USP Section -->
+  <div class="spacer"></div>
+  <div class="section-label">What Makes Us Different</div>
+
+  <div class="usp-highlight">
+    A senior, Bangladesh-based Webflow team delivering US-quality output at 40–60% below US agency rates. Faster turnaround, and a retainer model built for marketing sites that need to keep evolving, not just launch.
+  </div>
+
+  <div class="grid-2 mb-10">
+    <div class="card">
+      <div class="card-title">Price-to-Quality Gap</div>
+      <div class="card-body">Between cheap freelancers and expensive US agencies. Clients get a full team (design, dev, SEO, motion) without the overhead.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Webflow Specialists Only</div>
+      <div class="card-body">100% Webflow focus. No WordPress, Shopify, or custom React. Faster delivery, better output, no generalist compromises.</div>
+    </div>
+  </div>
+
+  <div class="grid-2 mb-10">
+    <div class="card">
+      <div class="card-title">Retainer-First Model</div>
+      <div class="card-body">We pitch long-term partnerships, not one-off projects. After launch we keep the site maintained and improving, so marketing keeps shipping campaigns without waiting on a developer.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Where AI Builders Fall Short</div>
+      <div class="card-body">We win on CMS-driven sites, brand systems, and deep integrations. That's where AI builders like Lovable, Bolt, and v0 hit a wall once you need real content models, custom logic, or design consistency at scale.</div>
+    </div>
+  </div>
+
+  <!-- Expertise Section -->
+  <div class="spacer"></div>
+  <div class="section-label">Expertise</div>
+
+  <div class="card mb-10">
+    <div class="card-title">Core Webflow Services</div>
+    <div class="mt-6">
+      <span class="tag tag-blue">Webflow Design + Build</span>
+      <span class="tag tag-teal">UI / UX Design</span>
+      <span class="tag tag-teal">Website Redesign</span>
+      <span class="tag tag-teal">CMS Architecture</span>
+      <span class="tag tag-blue">Webflow SEO</span>
+      <span class="tag tag-blue">Integrations (HubSpot, Stripe, Memberstack)</span>
+      <span class="tag tag-blue">Wix / WordPress Migration</span>
+      <span class="tag tag-blue">Webflow Maintenance Retainers</span>
+      <span class="tag tag-blue">White-Label Delivery for Agencies</span>
+      <span class="tag tag-teal">Motion / Video</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Emerging Service</div>
+    <div class="card-body">AI-to-Webflow migration for founders who prototyped on Lovable or Bolt and hit the wall on CMS, SEO, or brand consistency. Priced $4,500–$8,500.</div>
+  </div>
+
+  <!-- Team Section -->
+  <div class="spacer"></div>
+  <div class="section-label">The Team</div>
+
+  <div class="grid-2 mb-10">
+    <div class="card">
+      <div class="card-title">Milton — Tech Architect</div>
+      <div class="card-body">The technical brain behind every build. Sets CMS architecture, integration strategy, and performance budgets so the site scales without breaking when traffic and content grow.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Ashik — Designer & Webflow Expert</div>
+      <div class="card-body">Designs the work and builds it himself. Owns the design system, visual direction, and Webflow production, which means there's no Figma-to-Webflow translation gap to lose quality in.</div>
+    </div>
+  </div>
+
+  <div class="grid-2 mb-10">
+    <div class="card">
+      <div class="card-title">Emran — Project Lead & Client Strategy</div>
+      <div class="card-body">The person you'll actually talk to. Runs the project from first call to post-launch retainer, and helps you prioritise what to build first based on real business goals, not feature wishlists.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Rafiq — Webflow Developer</div>
+      <div class="card-body">Primary production developer for every project. Owns responsive behaviour, CMS bindings, and interaction logic, the parts that decide whether the site holds up under real traffic and content edits.</div>
+    </div>
+  </div>
+
+  <div class="grid-2 mb-10">
+    <div class="card">
+      <div class="card-title">Sadman — SEO & Growth</div>
+      <div class="card-body">Builds the SEO foundation that turns a Webflow launch into pipeline. Owns schema, technical SEO, and content structure pre-launch, and doubles as a Webflow developer when build capacity calls.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Mugdho — Motion & Video</div>
+      <div class="card-body">Brings the site to life through motion, video, and content polish. Hero animations, product demos, and scroll-driven interactions add the details B2B SaaS buyers notice when comparing options side by side.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Sortable industry ranking table
+  (function() {
+    const table = document.getElementById('ranking-table');
+    if (!table) return;
+    const headers = table.querySelectorAll('th.sortable');
+    const tbody = table.querySelector('tbody');
+
+    function getCellValue(row, idx, type) {
+      const cell = row.children[idx];
+      if (type === 'number') return parseFloat(cell.textContent) || 0;
+      if (type === 'rank') return parseFloat(cell.dataset.rank) || 0;
+      return cell.textContent.trim().toLowerCase();
+    }
+
+    headers.forEach(h => {
+      h.addEventListener('click', () => {
+        const col = parseInt(h.dataset.col);
+        const type = h.dataset.type;
+        const isAsc = h.classList.contains('sort-asc');
+        headers.forEach(x => x.classList.remove('sort-asc', 'sort-desc'));
+        h.classList.add(isAsc ? 'sort-desc' : 'sort-asc');
+        const dir = isAsc ? -1 : 1;
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+        rows.sort((a, b) => {
+          const av = getCellValue(a, col, type);
+          const bv = getCellValue(b, col, type);
+          if (av < bv) return -1 * dir;
+          if (av > bv) return 1 * dir;
+          return 0;
+        });
+        rows.forEach(r => tbody.appendChild(r));
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
